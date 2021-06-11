@@ -1,4 +1,4 @@
-export default function getMessages(req, res, users, messages) {
+export default function getMessages(req, res, messages) {
   const { limit } = req.query;
   const user = JSON.stringify(req.headers.user);
 

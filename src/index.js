@@ -4,6 +4,7 @@ import dayjs from "dayjs";
 import postParticipants from "./postParticipants.js";
 import postMessages from "./postMessages.js";
 import getMessages from "./getMessages.js";
+import postStatus from "./postStatus.js";
 
 const users = [];
 const messages = [];
@@ -25,9 +26,11 @@ app.post("/messages", (req, res) => {
 });
 
 app.get("/messages", (req, res) => {
-  getMessages(req, res, users, messages);
+  getMessages(req, res, messages);
 });
 
-app.post("/status", (req, res) => {});
+app.post("/status", (req, res) => {
+  postStatus(req, res, users);
+});
 
 app.listen(4000);
