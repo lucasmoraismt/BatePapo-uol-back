@@ -1,10 +1,10 @@
 import express from "express";
 import cors from "cors";
+import dayjs from "dayjs";
 import postParticipants from "./postParticipants.js";
 import postMessages from "./postMessages.js";
 import getMessages from "./getMessages.js";
 import postStatus from "./postStatus.js";
-import updateUser from "./updateUsers.js";
 
 let users = [];
 const messages = [];
@@ -34,7 +34,23 @@ app.post("/status", (req, res) => {
 });
 
 setInterval(() => {
-  updateUser(users, messages);
+  const newUsers = users.filter((u) => {
+    let counter = 0;
+    if (Date.now() - u.lastStatus > 10000) {
+      const newMessage = {
+        from: u.name,
+        to: "Todos",
+        text: "sai da sala...",
+        type: "status",
+        time: dayjs().format("HH:mm:ss"),
+      };
+      messages.push(newMessage);
+      counter = 1;
+    }
+    return counter === 0 ? true : false;
+  });
+
+  users = newUsers;
 }, 15000);
 
 app.listen(4000);
