@@ -1,6 +1,6 @@
 import dayjs from "dayjs";
 
-export default function postParticipants(req, res, users) {
+export default function postParticipants(req, res, users, messages) {
   const { name } = req.body;
   const usedName = users.find((p) => p.name === name);
   if (name.trim().length === 0) {

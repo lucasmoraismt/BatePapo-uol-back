@@ -3,6 +3,7 @@ import cors from "cors";
 import dayjs from "dayjs";
 import postParticipants from "./postParticipants.js";
 import postMessages from "./postMessages.js";
+import getMessages from "./getMessages.js";
 
 const users = [];
 const messages = [];
@@ -12,7 +13,7 @@ app.use(cors());
 app.use(express.json());
 
 app.post("/participants", (req, res) => {
-  postParticipants(req, res, users);
+  postParticipants(req, res, users, messages);
 });
 
 app.get("/participants", (req, res) => {
@@ -20,7 +21,13 @@ app.get("/participants", (req, res) => {
 });
 
 app.post("/messages", (req, res) => {
-  postMessages(req, res);
+  postMessages(req, res, users, messages);
 });
+
+app.get("/messages", (req, res) => {
+  getMessages(req, res, users, messages);
+});
+
+app.post("/status", (req, res) => {});
 
 app.listen(4000);
