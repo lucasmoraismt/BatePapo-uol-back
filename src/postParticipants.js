@@ -5,7 +5,7 @@ export default function postParticipants(req, res, users, messages) {
   const usedName = users.find((p) => p.name === name);
   if (name.trim().length === 0) {
     res.status(400).send();
-  } else if (usedName) {
+  } else if (!!usedName) {
     res.status(401).send();
   } else {
     const newUser = {

@@ -1,10 +1,11 @@
 import dayjs from "dayjs";
 
 export default function updateUser(users, messages) {
-  const newDate = Date.now();
+  let counter;
 
   const newUsers = users.filter((u) => {
-    if (newDate - u.lastStatus > 10000) {
+    counter = 0;
+    if (Date.now() - u.lastStatus > 10000) {
       const newMessage = {
         from: u.name,
         to: "Todos",
@@ -13,11 +14,10 @@ export default function updateUser(users, messages) {
         time: dayjs().format("HH:mm:ss"),
       };
       messages.push(newMessage);
-      return false;
-    } else {
-      return true;
+      counter = 1;
     }
+    return counter === 0 ? true : false;
   });
 
-  users = [...newUsers];
+  users = newUsers;
 }

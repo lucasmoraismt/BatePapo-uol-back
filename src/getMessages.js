@@ -8,14 +8,18 @@ export default function getMessages(req, res, messages) {
         if (
           JSON.stringify(m.to) === user ||
           JSON.stringify(m.from) === user ||
-          JSON.stringify(m.to) === "Todos"
+          m.to === "Todos"
         ) {
           return m;
         } else return;
       }
     } else {
       while (i < messages.length) {
-        if (m.to === user || m.from === user) {
+        if (
+          JSON.stringify(m.to) === user ||
+          JSON.stringify(m.from) === user ||
+          m.to === "Todos"
+        ) {
           return m;
         } else return;
       }
