@@ -1,12 +1,11 @@
 import express from "express";
 import cors from "cors";
-import dayjs from "dayjs";
 import postParticipants from "./postParticipants.js";
 import postMessages from "./postMessages.js";
 import getMessages from "./getMessages.js";
 import postStatus from "./postStatus.js";
 
-const users = [];
+let users = [];
 const messages = [];
 
 const app = express();
@@ -32,5 +31,13 @@ app.get("/messages", (req, res) => {
 app.post("/status", (req, res) => {
   postStatus(req, res, users);
 });
+
+setInterval(() => {
+  const newDate = Date.now();
+
+  const newUsers = users.filter((u) => newDate - u.lastStatus > 10000);
+
+  users = [...newUsers];
+}, 15000);
 
 app.listen(4000);
