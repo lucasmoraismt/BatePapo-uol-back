@@ -4,6 +4,7 @@ import postParticipants from "./postParticipants.js";
 import postMessages from "./postMessages.js";
 import getMessages from "./getMessages.js";
 import postStatus from "./postStatus.js";
+import updateUser from "./updateUsers.js";
 
 let users = [];
 const messages = [];
@@ -33,11 +34,7 @@ app.post("/status", (req, res) => {
 });
 
 setInterval(() => {
-  const newDate = Date.now();
-
-  const newUsers = users.filter((u) => newDate - u.lastStatus > 10000);
-
-  users = [...newUsers];
+  updateUser(users, messages);
 }, 15000);
 
 app.listen(4000);
